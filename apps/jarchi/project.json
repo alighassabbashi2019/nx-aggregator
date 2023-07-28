@@ -27,7 +27,8 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "jarchi:build"
+        "buildTarget": "jarchi:build",
+        "port": 9231
       },
       "configurations": {
         "development": {
