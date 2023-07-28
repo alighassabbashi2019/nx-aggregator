@@ -22,7 +22,8 @@ export class UsersController {
 
   @Get()
   findAll() {
-    return this.usersService.findAll();
+    this.usersService.getAggregatedData();
+    console.log('from auth findAll');
   }
 
   @Get(':id')
