@@ -6,38 +6,46 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserDto } from './dto/user.dto';
+import { UpdateUserDto } from './dto/user.dto';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly _usersService: UsersService) {}
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+    return this._usersService.create(createUserDto);
   }
 
   @Get()
   findAll() {
-    this.usersService.getAggregatedData();
-    console.log('from auth findAll');
+    return this._usersService.findAll();
+  }
+
+  @Get('/aggregated')
+  async findAggregatedUsers(
+    @Query('userFilters') userFilters,
+    @Query('packageFilters') packageFilters
+  ) {
+    return this._usersService.getAggregatedData(userFilters, packageFilters);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+    return this._usersService.findOne(+id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+    return this._usersService.update(+id, updateUserDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+    return this._usersService.remove(+id);
   }
 }

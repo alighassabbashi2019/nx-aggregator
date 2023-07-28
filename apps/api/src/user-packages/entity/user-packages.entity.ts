@@ -3,8 +3,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Package } from '../../packages/entities/package.entity';
 
 @Entity()
 export class UserPackages {
@@ -21,4 +23,7 @@ export class UserPackages {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @ManyToOne(() => Package, (pack) => pack.userPackages)
+  package: Package;
 }

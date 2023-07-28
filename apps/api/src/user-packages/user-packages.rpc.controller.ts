@@ -1,12 +1,13 @@
 import { Controller } from '@nestjs/common';
-import { EventPattern, MessagePattern, Payload } from '@nestjs/microservices';
+import { MessagePattern, Payload } from '@nestjs/microservices';
+import { UserPackagesService } from './user-packages.service';
 
 @Controller()
 export class UserPackagesRpcController {
-  @EventPattern('userfilteruserPackages')
-  getAggregated(@Payload() payload: number[]) {
-    console.log('reatch here');
-    console.log(payload);
-    return 'ali';
+  constructor(private readonly _userPackageService: UserPackagesService) {}
+
+  @MessagePattern('user.filter.userPackages')
+  getAggregated(@Payload() payload: string[]) {
+    return this._userPackageService.findByUserIds(payload);
   }
 }

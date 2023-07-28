@@ -8,8 +8,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { PackagesService } from './packages.service';
-import { CreatePackageDto } from './dto/create-package.dto';
-import { UpdatePackageDto } from './dto/update-package.dto';
+import { CreatePackageDto } from './dto/package.dto';
+import { UpdatePackageDto } from './dto/package.dto';
 
 @Controller('packages')
 export class PackagesController {
