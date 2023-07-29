@@ -1,0 +1,65 @@
+{
+  "name": "aggregate-layer",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/aggregate-layer/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/aggregate-layer",
+        "main": "apps/aggregate-layer/src/main.ts",
+        "tsConfig": "apps/aggregate-layer/tsconfig.app.json",
+        "assets": ["apps/aggregate-layer/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/aggregate-layer/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "aggregate-layer:build",
+        "port": 9232
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "aggregate-layer:build:development"
+        },
+        "production": {
+          "buildTarget": "aggregate-layer:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/aggregate-layer/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/aggregate-layer/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

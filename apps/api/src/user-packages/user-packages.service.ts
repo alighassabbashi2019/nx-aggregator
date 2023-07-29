@@ -16,7 +16,7 @@ export class UserPackagesService {
     return this._userPackagesRepo.save(createNewAssignment);
   }
 
-  findByUserIds(payload) {
+  async findByUserIds(payload) {
     console.log(JSON.parse(payload.filter).package, payload.ids);
 
     const queryBuilder = this._userPackagesRepo
@@ -24,6 +24,7 @@ export class UserPackagesService {
       .leftJoinAndSelect('userPackages.package', 'package')
       .where('userPackages.userId IN (:...ids)', { ids: payload.ids })
       .andWhere('package.id = :id', { id: JSON.parse(payload.filter).package });
-    return queryBuilder.getMany();
+    const userPackages = await queryBuilder.getMany();
+    return userPackages.map((userPackage) => userPackage.userId);
   }
 }

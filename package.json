@@ -5,7 +5,8 @@
   "scripts": {
     "auth:serve": "nx serve auth",
     "api:serve": "nx serve api",
-    "jarchi:serve": "nx serve jarchi"
+    "jarchi:serve": "nx serve jarchi",
+    "aggregate-layer:serve": "nx serve aggregate-layer"
   },
   "private": true,
   "dependencies": {
