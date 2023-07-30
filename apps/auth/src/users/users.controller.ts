@@ -26,26 +26,18 @@ export class UsersController {
     return this._usersService.findAll();
   }
 
-  @Get('/aggregated')
-  async findAggregatedUsers(
-    @Query('userFilters') userFilters,
-    @Query('packageFilters') packageFilters
-  ) {
-    return this._usersService.getAggregatedData(userFilters, packageFilters);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this._usersService.findOne(+id);
+  // }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this._usersService.findOne(+id);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  //   return this._usersService.update(+id, updateUserDto);
+  // }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this._usersService.update(+id, updateUserDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this._usersService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this._usersService.remove(+id);
+  // }
 }

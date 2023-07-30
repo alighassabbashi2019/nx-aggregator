@@ -1,6 +1,7 @@
 import { DynamicModule, Module, Type } from '@nestjs/common';
 import { AggregatorBaseService } from './aggregator-base.service';
-import { AggregatorRpcController } from './aggregator-rpc.controller';
+import { AuthAggregatorRpcController } from './auth.aggregator-rpc.controller';
+import { ApiAggregatorRpcController } from './api-aggregator-rpc.controller';
 
 @Module({})
 export class AggregatorModule {
@@ -8,6 +9,8 @@ export class AggregatorModule {
     service: Type<AggregatorBaseService>,
     Imports: Array<Type | DynamicModule>
   ): DynamicModule {
+    console.log('service.name', service.name, ',', typeof service.name);
+    console.log(service.name == 'UsersService');
     return {
       module: AggregatorModule,
       imports: [...Imports],
@@ -18,7 +21,11 @@ export class AggregatorModule {
           useClass: service,
         },
       ],
-      controllers: [AggregatorRpcController],
+      controllers: [
+        service.name == 'UsersService'
+          ? AuthAggregatorRpcController
+          : ApiAggregatorRpcController,
+      ],
     };
   }
 }

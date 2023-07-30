@@ -1,8 +1,3 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
@@ -19,8 +14,10 @@ async function bootstrap() {
     transport: Transport.KAFKA,
     options: {
       client: {
-        clientId: 'user-consumer',
         brokers: ['localhost:9092'],
+      },
+      consumer: {
+        groupId: 'aggregator-consumer' + Math.random(),
       },
     },
   });
