@@ -20,8 +20,6 @@ export class UserPackagesService extends AggregatorBaseService {
   }
 
   async getApiAggregatedData(filters: any): Promise<string[]> {
-    console.log(filters);
-
     const queryBuilder = this._userPackagesRepo
       .createQueryBuilder('userPackages')
       .leftJoinAndSelect('userPackages.package', 'package')
@@ -30,7 +28,6 @@ export class UserPackagesService extends AggregatorBaseService {
         id: filters.filters.package,
       });
     const userPackages = await queryBuilder.getMany();
-    console.log(userPackages);
 
     return userPackages.map((userPackage) => userPackage.userId);
   }
@@ -42,7 +39,6 @@ export class UserPackagesService extends AggregatorBaseService {
       .where('userPackages.userId IN (:...ids)', { ids: payload.ids })
       .andWhere('package.id = :id', { id: JSON.parse(payload.filter).package });
     const userPackages = await queryBuilder.getMany();
-    console.log(userPackages);
 
     return userPackages.map((userPackage) => userPackage.userId);
   }
